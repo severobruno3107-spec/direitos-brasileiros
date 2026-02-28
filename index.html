@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="Descubra todos os seus direitos e benefícios do governo brasileiro de forma personalizada e gratuita.">
+<meta name="keywords" content="direitos brasileiros, benefícios governo, BPC LOAS, bolsa família, tarifa social, seguro prestamista">
+<meta name="theme-color" content="#1B8C4E">
+<meta property="og:title" content="Direitos Brasileiros — Descubra seus direitos">
+<meta property="og:description" content="App gratuito que descobre todos os direitos e benefícios do seu perfil">
+<meta property="og:url" content="https://direitosbrasileiros.com.br">
+<title>Direitos Brasileiros — Conheça seus direitos</title>
+<style>
+:root {
+  --verde:#1B8C4E; --verde-c:#E8F5EE; --verde-m:#C8E6D4;
+  --azul:#1A56A0; --azul-c:#EEF4FC;
+  --am:#B07D00; --am-c:#FDF5DC;
+  --or:#D4620A; --or-c:#FEF0E6;
+  --vm:#C0392B; --vm-c:#FDECEA;
+  --bg:#F4F6F9; --branco:#FFFFFF;
+  --c1:#F8F9FB; --c2:#EEEFF2; --c3:#D1D5DB;
+  --c4:#9CA3AF; --c5:#6B7280; --c6:#374151;
+  --txt:#1A1D23; --txt2:#4B5563;
+  --sombra:0 2px 10px rgba(0,0,0,0.06);
+  --sombra-md:0 4px 18px rgba(0,0,0,0.10);
+  --r:14px; --rs:8px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:Arial,sans-serif;background:var(--bg);color:var(--txt);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.app{max-width:420px;margin:0 auto;min-height:100vh;background:var(--bg);position:relative;}
+.tela{display:none;animation:fu .3s ease;}
+.tela.ativa{display:block;}
+.tela.flex{display:none;}
+.tela.flex.ativa{display:flex;flex-direction:column;min-height:100vh;}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* BOTÕES */
+.btn-p{width:100%;padding:15px;background:var(--verde);color:#fff;border:none;border-radius:var(--r);font-family:Arial,sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:background .2s;}
+.btn-p:hover{background:#166b3c;}
+.btn-o{width:100%;padding:14px;background:transparent;color:var(--c5);border:1.5px solid var(--c3);border-radius:var(--r);font-family:Arial,sans-serif;font-size:14px;cursor:pointer;transition:all .2s;margin-top:10px;}
+.btn-o:hover{border-color:var(--verde);color:var(--verde);}
+.btn-back{width:34px;height:34px;background:var(--c1);border:1px solid var(--c2);border-radius:var(--rs);font-size:16px;cursor:pointer;color:var(--txt);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* CARDS */
+.card{background:var(--branco);border:1px solid var(--c2);border-radius:var(--r);padding:14px;cursor:pointer;transition:box-shadow .2s,transform .15s;position:relative;overflow:hidden;}
+.card::after{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;}
+.card.vd::after{background:var(--verde);}
+.card.az::after{background:var(--azul);}
+.card.am::after{background:#D4A017;}
+.card.or::after{background:var(--or);}
+.card:hover{box-shadow:var(--sombra-md);transform:translateY(-1px);}
+.c-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:6px;}
+.c-ico{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.vd .c-ico{background:var(--verde-c);}
+.az .c-ico{background:var(--azul-c);}
+.am .c-ico{background:var(--am-c);}
+.or .c-ico{background:var(--or-c);}
+.c-titulo{font-size:14px;font-weight:700;flex:1;}
+.badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+.badge.vd{background:var(--verde-c);color:var(--verde);}
+.badge.az{background:var(--azul-c);color:var(--azul);}
+.badge.am{background:var(--am-c);color:var(--am);}
+.badge.or{background:var(--or-c);color:var(--or);}
+.c-desc{font-size:12.5px;color:var(--c5);line-height:1.45;padding-left:44px;}
+.c-val{padding-left:44px;margin-top:6px;font-size:12px;color:var(--c5);}
+.val{font-size:13px;font-weight:700;color:var(--verde);}
+
+/* ADS */
+.ads{background:var(--branco);border:1px solid var(--c2);border-radius:var(--rs);padding:10px 12px;display:flex;align-items:center;gap:10px;}
+.ads-lbl{font-size:9px;color:var(--c4);border:1px solid var(--c3);padding:2px 5px;border-radius:3px;white-space:nowrap;flex-shrink:0;}
+.ads-body{flex:1;}
+.ads-t{font-size:13px;font-weight:700;color:var(--txt);}
+.ads-s{font-size:11px;color:var(--c5);}
+.ads-btn{font-size:11px;color:var(--azul);font-weight:700;background:var(--azul-c);border:none;border-radius:6px;padding:6px 10px;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+
+/* SECTION LABEL */
+.slbl{font-size:11px;font-weight:700;color:var(--c5);text-transform:uppercase;letter-spacing:.8px;padding:16px 16px 8px;}
+
+/* NAVBAR */
+.navbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:420px;background:var(--branco);border-top:1px solid var(--c2);display:none;justify-content:space-around;padding:10px 0 20px;z-index:100;box-shadow:0 -2px 10px rgba(0,0,0,0.05);}
+.navbar.on{display:flex;}
+.nb{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 18px;border-radius:8px;color:var(--c4);font-size:10px;border:none;background:transparent;transition:color .15s;}
+.nb.ativo{color:var(--verde);}
+.nb .ni{font-size:20px;}
+
+/* ══ TELA SPLASH ════════════════════════════ */
+#t-splash{background:var(--branco);display:flex!important;flex-direction:column;min-height:100vh;}
+.sp-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 28px 24px;text-align:center;}
+.sp-logo{width:72px;height:72px;background:var(--verde);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:18px;box-shadow:0 4px 18px rgba(27,140,78,.22);}
+.sp-titulo{font-size:26px;font-weight:700;line-height:1.2;margin-bottom:8px;}
+.sp-titulo span{color:var(--verde);}
+.sp-sub{font-size:14px;color:var(--c5);line-height:1.6;max-width:270px;margin-bottom:28px;}
+.pills{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:28px;}
+.pill{background:var(--c1);border:1px solid var(--c2);border-radius:20px;padding:5px 11px;font-size:12px;color:var(--c5);}
+.sp-foot{padding:20px 28px 36px;border-top:1px solid var(--c2);}
+.sp-nota{text-align:center;margin-top:14px;font-size:11px;color:var(--c4);display:flex;justify-content:center;gap:14px;}
+
+/* ══ TELA LOGIN ══════════════════════════════ */
+#t-login{background:var(--branco);min-height:100vh;padding-bottom:40px;}
+.lg-body{padding:20px 24px 24px;}
+.lg-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px;}
+.lg-logo-ico{width:38px;height:38px;background:var(--verde);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;}
+.lg-titulo{font-size:22px;font-weight:700;margin-bottom:6px;}
+.lg-sub{font-size:13px;color:var(--c5);margin-bottom:24px;line-height:1.5;}
+.btn-social{width:100%;padding:14px 16px;background:var(--branco);border:1.5px solid var(--c3);border-radius:var(--r);font-family:Arial,sans-serif;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .2s;color:var(--txt);margin-bottom:10px;}
+.btn-social:hover{border-color:var(--verde);box-shadow:var(--sombra);}
+.divider{display:flex;align-items:center;gap:12px;margin:16px 0;}
+.divider-line{flex:1;height:1px;background:var(--c2);}
+.divider-txt{font-size:12px;color:var(--c4);}
+.inp-grp{margin-bottom:12px;}
+.inp-lbl{font-size:12px;font-weight:700;color:var(--c5);margin-bottom:5px;display:block;}
+.inp-field{width:100%;padding:12px 14px;background:var(--c1);border:1.5px solid var(--c2);border-radius:var(--rs);font-family:Arial,sans-serif;font-size:14px;color:var(--txt);outline:none;transition:border .2s;}
+.inp-field:focus{border-color:var(--verde);}
+.divisao{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0 8px;}
+.div-card{padding:18px 12px;border:2px solid var(--c2);border-radius:var(--r);cursor:pointer;text-align:center;transition:all .2s;background:var(--branco);}
+.div-card:hover{border-color:var(--verde);}
+.div-card.sel{border-color:var(--verde);background:var(--verde-c);}
+.div-ico{font-size:26px;margin-bottom:6px;}
+.div-titulo{font-size:13px;font-weight:700;margin-bottom:3px;}
+.div-sub{font-size:11px;color:var(--c5);line-height:1.4;}
+
+/* ══ TELA CHAT ════════════════════════════ */
+#t-chat{background:var(--branco);}
+.ch-hdr{background:var(--branco);padding:14px 16px 12px;border-bottom:1px solid var(--c2);position:sticky;top:0;z-index:10;}
+.ch-hdr-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.ch-ava{width:36px;height:36px;background:var(--verde);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.ch-nome{font-size:14px;font-weight:700;}
+.ch-status{font-size:11px;color:var(--verde);font-weight:600;}
+.prog-bar{height:3px;background:var(--c2);border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--verde);border-radius:2px;transition:width .6s ease;width:0%;}
+.prog-lbl{font-size:11px;color:var(--c4);margin-top:5px;text-align:right;}
+.ch-msgs{flex:1;padding:14px 16px 8px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;min-height:calc(100vh - 200px);}
+.msg{max-width:86%;animation:mi .25s ease;}
+.msg-ia{align-self:flex-start;}
+.msg-usr{align-self:flex-end;}
+@keyframes mi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.msg-nm{font-size:11px;color:var(--c4);margin-bottom:3px;padding-left:2px;}
+.balao{padding:10px 13px;border-radius:14px;font-size:13.5px;line-height:1.55;}
+.msg-ia .balao{background:var(--c1);border:1px solid var(--c2);border-bottom-left-radius:4px;}
+.msg-usr .balao{background:var(--verde);color:#fff;border-bottom-right-radius:4px;}
+.typing{display:flex;gap:4px;align-items:center;padding:10px 13px;background:var(--c1);border:1px solid var(--c2);border-radius:14px;border-bottom-left-radius:4px;width:fit-content;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--c4);animation:bounce 1.2s ease-in-out infinite;}
+.dot:nth-child(2){animation-delay:.18s}.dot:nth-child(3){animation-delay:.36s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-5px);opacity:1}}
+.ch-inp-area{padding:10px 16px 24px;background:var(--branco);border-top:1px solid var(--c2);position:sticky;bottom:0;}
+.inp-box{display:flex;gap:8px;align-items:flex-end;background:var(--c1);border:1.5px solid var(--c2);border-radius:16px;padding:8px 8px 8px 13px;transition:border .2s;}
+.inp-box:focus-within{border-color:var(--verde);}
+.txt-inp{flex:1;background:transparent;border:none;outline:none;font-family:Arial,sans-serif;font-size:14px;color:var(--txt);resize:none;max-height:90px;min-height:20px;line-height:1.4;}
+.txt-inp::placeholder{color:var(--c4);}
+.btn-send{width:34px;height:34px;background:var(--verde);border:none;border-radius:10px;color:#fff;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0;}
+.btn-send:hover{background:#166b3c;}
+.btn-send:disabled{background:var(--c3);cursor:not-allowed;}
+
+/* ══ TELA RESULTADO ══════════════════════════ */
+#t-resultado{padding-bottom:90px;}
+.res-hdr{background:var(--branco);padding:16px 16px 14px;border-bottom:1px solid var(--c2);}
+.res-perfil{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.res-ava{width:44px;height:44px;background:var(--verde);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;}
+.res-nome{font-size:15px;font-weight:700;}
+.res-desc{font-size:12px;color:var(--c5);margin-top:2px;}
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.stat{background:var(--c1);border:1px solid var(--c2);border-radius:var(--rs);padding:10px;text-align:center;}
+.stat-n{font-size:20px;font-weight:700;color:var(--verde);}
+.stat-l{font-size:10px;color:var(--c5);margin-top:2px;line-height:1.3;}
+
+/* HDR padrão */
+.hdr{background:var(--branco);padding:16px 16px 14px;border-bottom:1px solid var(--c2);position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:10px;}
+.hdr-titulo{font-size:16px;font-weight:700;flex:1;}
+.hdr-sub{font-size:11px;color:var(--c5);}
+
+</style>
+</head>
+<body>
+<div class="app">
+
+<div id="t-splash" class="tela ativa">
+  <div class="sp-body">
+    <div class="sp-logo">⚖️</div>
+    <div class="sp-titulo">Direitos<br><span>Brasileiros</span></div>
+    <p class="sp-sub">Descubra todos os benefícios e direitos do seu perfil — de forma personalizada e gratuita.</p>
+  </div>
+  <div class="sp-foot">
+    <button class="btn-p" onclick="ir('t-login')">Descobrir meus direitos — grátis</button>
+    <button class="btn-o" onclick="ir('t-resultado')">Já tenho cadastro — Entrar</button>
+  </div>
+</div>
+
+<div id="t-login" class="tela">
+  <div class="lg-body">
+    <button class="btn-back" onclick="ir('t-splash')">←</button>
+    <div class="lg-titulo">Criar conta gratuita</div>
+    <div class="inp-grp">
+      <label class="inp-lbl">Nome</label>
+      <input class="inp-field" id="inp-nome" type="text" placeholder="Seu nome">
+    </div>
+    <div class="inp-grp">
+      <label class="inp-lbl">Cidade / Estado</label>
+      <input class="inp-field" id="inp-cidade" type="text" placeholder="Ex: Guarulhos, SP">
+    </div>
+    <button class="btn-p" onclick="entrar()">Acessar assistente</button>
+  </div>
+</div>
+
+<div id="t-chat" class="tela flex">
+  <div class="ch-hdr">
+    <div class="ch-hdr-row">
+      <div class="ch-ava">🤖</div>
+      <div>
+        <div class="ch-nome">Assistente Jurídico</div>
+        <div class="ch-status" id="ch-status">● Disponível agora</div>
+      </div>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+    <div class="prog-lbl" id="prog-lbl">Aguardando...</div>
+  </div>
+  <div class="ch-msgs" id="ch-msgs"></div>
+  <div class="ch-inp-area">
+    <div class="inp-box">
+      <textarea class="txt-inp" id="chat-inp" placeholder="Escreva aqui..." rows="1"></textarea>
+      <button class="btn-send" id="btn-send" onclick="enviar()">➤</button>
+    </div>
+  </div>
+</div>
+
+<div id="t-resultado" class="tela">
+  <div class="res-hdr">
+    <div class="res-perfil">
+      <div class="res-ava" id="res-ava">?</div>
+      <div class="res-nome" id="res-nome">Meu Perfil</div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-n" id="st-direitos">—</div><div class="stat-l">Direitos</div></div>
+      <div class="stat"><div class="stat-n" id="st-valor">—</div><div class="stat-l">Potencial</div></div>
+    </div>
+  </div>
+  <div id="res-conteudo" style="padding:20px"></div>
+</div>
+
+<div class="navbar" id="navbar">
+  <button class="nb ativo" id="nb-chat" onclick="nb('t-chat','nb-chat')">💬 <span>Assistente</span></button>
+  <button class="nb" id="nb-home" onclick="nb('t-resultado','nb-home')">🏠 <span>Início</span></button>
+</div>
+
+</div>
+
+<script>
+// ══ COLOQUE SUA CHAVE AQUI ══════════════════════════
+const GEMINI_KEY = "AIzaSyCTcvuorbzqDZbwz004HPlOGITmqokB0IQ"; 
+// ════════════════════════════════════════════════════
+
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`;
+
+const PROMPT_MESTRE = `Você é o Assistente Jurídico do app Direitos Brasileiros. Ajude o usuário a encontrar benefícios do governo e direitos judiciais baseados no relato dele. No final de cada conversa, se identificar direitos, escreva "🎯 ENCONTREI [X] DIREITOS" seguido de um resumo.`;
+
+let historico = [];
+let perfil = { nome: '', cidade: '' };
+
+function ir(id) {
+  document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
+  document.getElementById(id).classList.add('ativa');
+  document.getElementById('navbar').classList.toggle('on', id !== 't-splash' && id !== 't-login');
+}
+
+function nb(tela, id) {
+  ir(tela);
+  document.querySelectorAll('.nb').forEach(b => b.classList.remove('ativo'));
+  document.getElementById(id).classList.add('ativo');
+}
+
+function entrar() {
+  perfil.nome = document.getElementById('inp-nome').value || 'Usuário';
+  perfil.cidade = document.getElementById('inp-cidade').value || '';
+  document.getElementById('res-nome').textContent = perfil.nome;
+  document.getElementById('res-ava').textContent = perfil.nome.charAt(0).toUpperCase();
+  ir('t-chat');
+  adicionarMsg(`Olá ${perfil.nome}! Me conte sua situação para eu encontrar seus direitos.`, 'ia');
+}
+
+async function enviar() {
+  const inp = document.getElementById('chat-inp');
+  const txt = inp.value.trim();
+  if (!txt) return;
+
+  adicionarMsg(txt, 'usr');
+  inp.value = '';
+  historico.push({ role: 'user', parts: [{ text: txt }] });
+  
+  await chamarGemini();
+}
+
+async function chamarGemini() {
+  document.getElementById('ch-status').textContent = '● Analisando...';
+  try {
+    const res = await fetch(GEMINI_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        system_instruction: { parts: [{ text: PROMPT_MESTRE }] },
+        contents: historico
+      })
+    });
+    const data = await res.json();
+    const resp = data.candidates[0].content.parts[0].text;
+    
+    adicionarMsg(resp, 'ia');
+    historico.push({ role: 'model', parts: [{ text: resp }] });
+
+    if (resp.includes('🎯 ENCONTREI')) {
+      document.getElementById('res-conteudo').innerHTML = `<div style="background:var(--verde-c);padding:15px;border-radius:10px">${resp.replace(/\n/g,'<br>')}</div>`;
+    }
+  } catch (e) {
+    adicionarMsg("Erro: Verifique se sua chave da API está correta.", "ia");
+  }
+  document.getElementById('ch-status').textContent = '● Disponível agora';
+}
+
+function adicionarMsg(txt, tipo) {
+  const msgs = document.getElementById('ch-msgs');
+  const d = document.createElement('div');
+  d.className = `msg msg-${tipo}`;
+  d.innerHTML = `<div class="balao">${txt}</div>`;
+  msgs.appendChild(d);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+</script>
+</body>
+</html>
