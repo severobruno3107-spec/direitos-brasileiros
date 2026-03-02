@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Direitos Brasileiros — Portal de Justiça</title>
+<title>Direitos Brasileiros — Portal Profissional</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 /* ══ ESTILO CLEAN (ESTILO ILOVEPDF) ══════════════ */
@@ -12,7 +12,8 @@
   --verde-hover: #146c3c;
   --bg-site: #f3f4f7;
   --branco: #ffffff;
-  --texto: #333;
+  --texto: #1A1D23;
+  --sombra: 0 4px 20px rgba(0,0,0,0.06);
 }
 
 body {
@@ -22,141 +23,232 @@ body {
   color: var(--texto);
 }
 
+/* NAVBAR ESTILO WEB */
 .navbar {
   background: var(--branco);
   padding: 15px 50px;
   display: flex; justify-content: space-between; align-items: center;
   border-bottom: 1px solid #ddd;
+  position: sticky; top: 0; z-index: 100;
 }
+.logo { font-weight: 700; color: var(--verde); font-size: 24px; cursor: pointer; display: flex; align-items: center; gap: 10px; }
 
-.logo { font-weight: 700; color: var(--verde); font-size: 24px; cursor: pointer; }
-
-/* ══ LAYOUT EM GRID ══════════════════════════════ */
+/* CONTAINER PRINCIPAL 1920px */
 .container {
   max-width: 1200px;
-  margin: 50px auto;
+  margin: 40px auto;
   padding: 0 20px;
   text-align: center;
 }
 
-.hero h1 { font-size: 42px; margin-bottom: 10px; }
-.hero p { color: #666; font-size: 18px; margin-bottom: 40px; }
+.hero h1 { font-size: 42px; margin-bottom: 10px; font-weight: 700; }
+.hero p { color: #6c757d; font-size: 18px; margin-bottom: 40px; }
 
+/* GRID DE FERRAMENTAS ESTILO ILOVEPDF */
 .grid-ferramentas {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 25px;
 }
 
 .card {
   background: var(--branco);
-  padding: 40px 20px;
+  padding: 40px 25px;
   border-radius: 12px;
   border: 1px solid #eee;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  box-shadow: var(--sombra);
 }
-
 .card:hover {
   transform: translateY(-8px);
   box-shadow: 0 15px 30px rgba(0,0,0,0.1);
   border-color: var(--verde);
 }
-
 .card-icon { font-size: 50px; margin-bottom: 20px; }
 .card h3 { margin: 10px 0; font-size: 22px; }
-.card p { color: #777; font-size: 14px; }
+.card p { color: #6c757d; font-size: 14px; line-height: 1.5; }
 
-/* ══ ÁREA DO CHAT (ADAPTADA PARA WEB) ═══════════ */
-.tela { display: none; }
+/* SEÇÕES DE CONTEÚDO */
+.tela { display: none; animation: fadeIn 0.4s ease; }
 .tela.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+/* ÁREA DE CHAT PROFISSIONAL */
 #chat-cont {
   background: var(--branco);
   height: 500px;
   overflow-y: auto;
-  padding: 20px;
-  border-radius: 8px;
+  padding: 25px;
+  border-radius: 12px;
   border: 1px solid #ddd;
-  margin-bottom: 20px;
+  margin: 20px 0;
   text-align: left;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
 }
+.msg { margin-bottom: 20px; padding: 15px 20px; border-radius: 15px; max-width: 70%; line-height: 1.5; font-size: 15px; }
+.msg.user { background: var(--verde); color: #fff; margin-left: auto; border-bottom-right-radius: 2px; }
+.msg.ia { background: #f1f3f5; color: var(--texto); border-bottom-left-radius: 2px; }
 
-.msg { margin-bottom: 15px; padding: 12px 18px; border-radius: 10px; max-width: 70%; line-height: 1.5; }
-.msg.user { background: var(--verde); color: #fff; margin-left: auto; }
-.msg.ia { background: #f1f1f1; color: #333; }
+.input-area { display: flex; gap: 15px; background: var(--branco); padding: 15px; border-radius: 12px; border: 1px solid #ddd; }
+textarea { flex: 1; padding: 10px; border: none; resize: none; font-family: inherit; font-size: 16px; outline: none; }
+.btn-env { background: var(--verde); color: white; border: none; padding: 0 30px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+.btn-env:disabled { background: #ccc; }
 
-.input-area { display: flex; gap: 10px; }
-textarea { flex: 1; padding: 15px; border-radius: 8px; border: 1px solid #ddd; resize: none; }
-
-button.env-btn { 
-    background: var(--verde); color: white; border: none; 
-    padding: 0 30px; border-radius: 8px; cursor: pointer; font-weight: bold;
-}
-
-/* Responsivo para Mobile */
-@media (max-width: 600px) {
-  .hero h1 { font-size: 28px; }
-  .grid-ferramentas { grid-template-columns: 1fr; }
-}
+/* PROGRESSO */
+.prog-bar { width: 100%; height: 4px; background: #eee; position: fixed; top: 60px; left: 0; }
+.prog-fill { height: 100%; background: var(--verde); width: 0%; transition: 0.5s; }
 </style>
 </head>
 <body>
 
 <nav class="navbar">
-  <div class="logo" onclick="nav('t-home')">⚖️ Direitos Brasileiros</div>
-  <div class="menu">Suporte | Sobre</div>
+  <div class="logo" onclick="nav('t-home')">⚖️ <span>Direitos Brasileiros</span></div>
+  <div style="font-size: 14px; color: #666;">Assistente Jurídico IA</div>
 </nav>
+
+<div class="prog-bar"><div class="prog-fill" id="chat-prog"></div></div>
 
 <div class="container">
   
   <div id="t-home" class="tela active">
     <div class="hero">
-      <h1>Todas as ferramentas jurídicas num só lugar</h1>
-      <p>A IA que simplifica as leis para o cidadão brasileiro.</p>
+      <h1>Simplifique seus Direitos</h1>
+      <p>Acesse ferramentas inteligentes para entender seus benefícios e deveres.</p>
     </div>
 
     <div class="grid-ferramentas">
       <div class="card" onclick="nav('t-chat')">
         <div class="card-icon">💬</div>
         <h3>Falar com Dr. Direitos</h3>
-        <p>Tire dúvidas sobre benefícios e leis em tempo real com nossa IA.</p>
+        <p>Inicie uma consulta guiada por IA para identificar seus benefícios sociais e trabalhistas.</p>
       </div>
 
       <div class="card" onclick="nav('t-res')">
-        <div class="card-icon">⚖️</div>
-        <h3>Minha Análise</h3>
-        <p>Veja o relatório final dos seus direitos encontrados após o chat.</p>
+        <div class="card-icon">📊</div>
+        <h3>Ver Minha Análise</h3>
+        <p>Acesse o relatório detalhado gerado após sua conversa com nosso assistente.</p>
       </div>
 
-      <div class="card">
+      <div class="card" style="opacity: 0.7; cursor: not-allowed;">
         <div class="card-icon">📄</div>
-        <h3>Documentos</h3>
-        <p>Em breve: Gerador automático de petições e documentos.</p>
+        <h3>Documentação</h3>
+        <p>Em breve: Organizador automático de documentos para o CRAS e INSS.</p>
       </div>
     </div>
   </div>
 
   <div id="t-chat" class="tela">
-    <h2>Conversa com Dr. Direitos</h2>
+    <h2 style="text-align:left;">Consulta em Tempo Real</h2>
     <div id="chat-cont"></div>
     <div class="input-area">
-      <textarea id="chat-input" placeholder="Descreva sua situação jurídica aqui..."></textarea>
-      <button class="env-btn" id="btn-env" onclick="enviarMsg()">Enviar</button>
+      <textarea id="chat-input" placeholder="Descreva sua situação (ex: estou desempregado e tenho filhos)..." rows="2"></textarea>
+      <button class="btn-env" id="btn-env" onclick="enviarMsg()" disabled>Enviar ➔</button>
     </div>
-    <button onclick="nav('t-home')" style="margin-top:20px; background:none; border:none; color:grey; cursor:pointer;">← Voltar</button>
+    <p style="font-size:12px; color: #999; margin-top:15px;">Dr. Direitos: Sua conversa é privada e segura.</p>
   </div>
 
   <div id="t-res" class="tela">
-    <h2>Análise Final</h2>
-    <div class="card" style="text-align: left; cursor: default;">
-        <p id="res-ia-text">Você ainda não completou uma consulta.</p>
+    <h2>Relatório de Direitos Encontrados</h2>
+    <div class="card" style="text-align: left; max-width: 800px; margin: 0 auto;">
+        <div id="res-ia-text" style="white-space: pre-wrap; line-height: 1.8;">
+          Você ainda não realizou uma consulta completa. Clique em "Falar com Dr. Direitos" para começar.
+        </div>
     </div>
-    <button onclick="nav('t-home')" style="margin-top:20px; background:var(--verde); color:white; padding:10px 20px; border-radius:5px; border:none; cursor:pointer;">Voltar ao Início</button>
+    <button onclick="nav('t-home')" style="margin-top:30px; background:var(--verde); color:white; padding:15px 40px; border-radius:8px; border:none; cursor:pointer; font-weight:bold;">Voltar ao Início</button>
   </div>
 
 </div>
 
 <script>
-/* ══ SUA LÓGICA ORIGINAL PRESERVADA ══════════
+/* ══ LÓGICA ORIGINAL DO SEU ARQUIVO ══════════ */
+const GEMINI_KEY = "AIzaSyCTcvuorbzqDZbwz004HPlOGITmqokB0IQ"; // Sua chave original
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`;
+
+let historico = [];
+let progresso = 0;
+
+const SYSTEM_PROMPT = `Você é o "Dr. Direitos", um assistente especialista em leis e benefícios brasileiros (como BPC, Bolsa Família, Auxílio Gás, Seguro Desemprego, Isenção de impostos, etc). 
+Sua missão é conversar de forma amigável com o usuário, coletar informações sobre a vida dele e identificar possíveis direitos.
+REGRAS:
+1. Comece sendo empático.
+2. Não dê certezas absolutas, diga "Você pode ter direito".
+3. Se identificar direitos, liste-os de forma clara.
+4. Ao final da análise, se achar que terminou, escreva no final da mensagem exatamente: "[FINAL_ANALISE: X]" onde X é o número de direitos encontrados.`; // Seu prompt original
+
+function nav(id) {
+  document.querySelectorAll('.tela').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function addMsg(tipo, txt) {
+  const cont = document.getElementById('chat-cont');
+  const div = document.createElement('div');
+  div.className = `msg ${tipo}`;
+  div.innerHTML = txt.replace(/\[FINAL_ANALISE: \d+\]/g, "").replace(/\n/g, '<br>');
+  cont.appendChild(div);
+  cont.scrollTop = cont.scrollHeight;
+}
+
+async function enviarMsg() {
+  const input = document.getElementById('chat-input');
+  const txt = input.value.trim();
+  if(!txt) return;
+
+  addMsg("user", txt);
+  input.value = "";
+  document.getElementById('btn-env').disabled = true;
+  
+  historico.push({ role: "user", parts: [{ text: txt }] });
+  
+  // Progresso visual
+  progresso += 20; if(progresso > 100) progresso = 100;
+  document.getElementById('chat-prog').style.width = progresso + "%";
+
+  await chamarIA();
+}
+
+async function chamarIA() {
+  try {
+    const response = await fetch(GEMINI_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+        contents: historico
+      })
+    });
+
+    const data = await response.json();
+    const aiResp = data.candidates[0].content.parts[0].text;
+    
+    addMsg("ia", aiResp);
+    historico.push({ role: "model", parts: [{ text: aiResp }] });
+    
+    // Lógica de finalização original
+    if(aiResp.includes("[FINAL_ANALISE:")) {
+      document.getElementById('res-ia-text').innerHTML = aiResp.replace(/\[FINAL_ANALISE: \d+\]/g, "").replace(/\n/g, '<br>');
+      setTimeout(() => alert("Análise concluída! Verifique a aba 'Minha Análise'."), 1000);
+    }
+
+  } catch (e) {
+    addMsg("ia", "Erro de conexão. Verifique sua internet.");
+  } finally {
+    document.getElementById('btn-env').disabled = false;
+  }
+}
+
+document.getElementById('chat-input').addEventListener('input', function() {
+  document.getElementById('btn-env').disabled = this.value.trim().length === 0;
+});
+
+// Mensagem inicial automática
+window.onload = () => {
+  const saudacao = "Olá! Sou o Dr. Direitos. Como posso ajudar você hoje? Me conte um pouco sobre sua situação de trabalho ou família.";
+  addMsg("ia", saudacao);
+  historico.push({ role: "model", parts: [{ text: saudacao }] });
+};
+</script>
+</body>
+</html>
